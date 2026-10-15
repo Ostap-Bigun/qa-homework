@@ -1,79 +1,86 @@
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+@DisplayName("Calculator tests")
 public class CalculatorTest {
-    @Test
-    void calculatorTestSumPositive() {
-        assertEquals(3, Calculator.sum(1, 2));
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("Starting Calculator tests");
     }
 
-    @Test
-    void calculatorTestSumZero() {
-        assertEquals(0, Calculator.sum(0, 0));
+    @BeforeEach
+    void beforeEach() {
+        System.out.println("Starting test");
     }
 
-    @Test
-    void calculatorTestSumNegative() {
-        assertEquals(-3, Calculator.sum(-1, -2));
+    @AfterEach
+    void afterEach() {
+        System.out.println("Test finished");
     }
 
-    @Test
-    void calculatorTestSubstractPositive() {
-        assertEquals(2, Calculator.substract(3, 1));
+    @AfterAll
+    static void afterAll() {
+        System.out.println("Calculator tests finished");
     }
 
-    @Test
-    void calculatorTestSubstractZero() {
-        assertEquals(0, Calculator.substract(0, 0));
+    @ParameterizedTest
+    @DisplayName("Testing addition")
+    @CsvSource({
+            "3, 1, 2",
+            "0, 0, 0",
+            "-3, -1, -2"
+    })
+    void calculatorTestSum(int expected, int a, int b) {
+        assertEquals(expected, Calculator.sum(a, b));
     }
 
-    @Test
-    void calculatorTestSubstractNegative() {
-        assertEquals(1, Calculator.substract(-1, -2));
+    @ParameterizedTest
+    @DisplayName("Testing subtraction")
+    @CsvSource({
+            "2, 3,1",
+            "0, 0, 0",
+            "1,-1,-2"
+    })
+    void calculatorTestSubstract(int expected, int a, int b) {
+
+        assertEquals(expected, Calculator.substract(a, b));
     }
 
+    @ParameterizedTest
+    @DisplayName("Testing multiplication")
+    @CsvSource({
+            "3, 3,1",
+            "0, 6, 0",
+            "2,-1,-2"
+    })
+    void calculatorTestMultiply(int expected, int a, int b) {
 
-    @Test
-    void calculatorTestMultiplyPositive() {
-        assertEquals(3, Calculator.multiply(3, 1));
+        assertEquals(expected, Calculator.multiply(a, b));
     }
 
-    @Test
-    void calculatorTestMultiplyZero() {
-        assertEquals(0, Calculator.multiply(6, 0));
+    @ParameterizedTest
+    @DisplayName("Testing division")
+    @CsvSource({
+            "2.0, 6,3",
+            "2.5, 5, 2",
+            "0.0,0,5",
+            "-3.0,-6,2"
+    })
+    void calculatorTestDivide(double expected, int a, int b) {
+
+        assertEquals(expected, Calculator.divide(a, b));
     }
 
-    @Test
-    void calculatorTestMultiplyNegative() {
-        assertEquals(2, Calculator.multiply(-1, -2));
-    }
-
-
-    @Test
-    void calculatorTestDividePositive() {
-        assertEquals(2.0, Calculator.divide(6, 3));
-    }
-
-    @Test
-    void calculatorTestDividePositiveFraction() {
-        assertEquals(2.5, Calculator.divide(5, 2));
-    }
-
-    @Test
-    void calculatorTestDivideZero() {
-        assertEquals(0.0, Calculator.divide(0, 5));
-    }
 
     @Test
     void calculatorTestDivideByZero() {
-        assertThrows(ArithmeticException.class, ()-> Calculator.divide(5, 0));
+        assertThrows(ArithmeticException.class, () -> Calculator.divide(5, 0));
     }
 
-    @Test
-    void calculatorTestDivideNegative() {
-        assertEquals(-3.0, Calculator.divide(-6, 2));
-    }
 
 }
+
+
