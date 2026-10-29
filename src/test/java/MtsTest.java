@@ -6,6 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MtsPage;
 import pages.PaymentPage;
 import services.MtsService;
+import io.qameta.allure.Description;
+import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 
 import java.util.List;
 
@@ -36,6 +41,10 @@ public class MtsTest {
     }
 
     @Test
+    @DisplayName("Проверка полей формы «Услуги связи»")
+    @Description("Проверка placeholder-ов незаполненных полей формы оплаты услуг связи")
+    @Feature("Онлайн-пополнение")
+    @Severity(SeverityLevel.NORMAL)
     void connectionPlaceholdersTest() {
         List<String> expected = List.of(
                 "Номер телефона",
@@ -47,6 +56,8 @@ public class MtsTest {
     }
 
     @Test
+    @DisplayName("Проверка полей формы «Домашний интернет»")
+    @Description("Проверка placeholder-ов незаполненных полей формы оплаты домашнего интернета")
     void internetPlaceholdersTest() {
         List<String> expected = List.of(
                 "Номер абонента",
@@ -58,6 +69,8 @@ public class MtsTest {
     }
 
     @Test
+    @DisplayName("Проверка полей формы «Рассрочка»")
+    @Description("Проверка placeholder-ов незаполненных полей формы оплаты рассрочки")
     void instalmentPlaceholdersTest() {
         List<String> expected = List.of(
                 "Номер счета на 44",
@@ -69,6 +82,8 @@ public class MtsTest {
     }
 
     @Test
+    @DisplayName("Проверка полей формы «Задолженность»")
+    @Description("Проверка placeholder-ов незаполненных полей формы оплаты задолженности")
     void arrearsPlaceholdersTest() {
         List<String> expected = List.of(
                 "Номер счета на 2073",
@@ -80,6 +95,10 @@ public class MtsTest {
     }
 
     @Test
+    @DisplayName("Проверка окна оплаты услуг связи")
+    @Description("Проверка суммы, номера телефона, полей карты, платёжных систем и кнопки оплаты")
+    @Feature("Онлайн-пополнение")
+    @Severity(SeverityLevel.CRITICAL)
     void paymentWindowTest() {
         mtsService.openPaymentWindow(
                 "297777777",
